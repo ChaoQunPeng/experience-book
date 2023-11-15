@@ -2,7 +2,7 @@
  * @Author: PengChaoQun 1152684231@qq.com
  * @Date: 2023-11-15 18:28:11
  * @LastEditors: PengChaoQun 1152684231@qq.com
- * @LastEditTime: 2023-11-15 19:35:53
+ * @LastEditTime: 2023-11-15 21:57:28
  * @FilePath: /experience-book/src/api/config/interceptors.js
  * @Description: 
  */
@@ -33,14 +33,10 @@ axios.interceptors.response.use(
         return res.result
     },
     error => {
-        Message.error(error.response.msg || error.response.status)
         return Promise.reject(error)
     }
 )
 
-function handleError() {
-
-}
 
 //将实例暴露出去使用
 export default axios;

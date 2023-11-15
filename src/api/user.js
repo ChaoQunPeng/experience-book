@@ -2,12 +2,12 @@
  * @Author: PengChaoQun 1152684231@qq.com
  * @Date: 2023-11-15 18:44:49
  * @LastEditors: PengChaoQun 1152684231@qq.com
- * @LastEditTime: 2023-11-15 20:08:42
+ * @LastEditTime: 2023-11-15 21:57:14
  * @FilePath: /experience-book/src/api/user.js
  * @Description: 
  */
 
-import axios from 'axios';
+import axios from './config/interceptors';
 import { BaseApi } from './config/base-api'
 
 /**
@@ -29,4 +29,4 @@ class UserApi extends BaseApi {
     }
 }
 
-export const userApi = new UserApi('user');
+export const user = new UserApi('user');
