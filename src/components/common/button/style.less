@@ -1,0 +1,49 @@
+@import "../../../assets/theme/default.less";
+
+
+.@{class-prefix}-btn {
+  display      : inline-block;
+  outline      : none;
+  border-radius: 2px;
+  padding      : 4px 18px;
+  height       : 32px;
+  cursor       : pointer;
+  transition   : all 0.3s;
+  border       : none;
+  font-size    : 14px;
+  background   : #ced6e0;
+  color        : #2f3542;
+  line-height  : 1;
+  vertical-align: middle;
+
+  &+.@{class-prefix}-btn {
+    margin-left: 5px;
+  }
+
+  &:hover,
+  &:focus {
+    opacity: .8;
+  }
+
+  &-primary {
+    background: var(--primary);
+    color     : #fff;
+  }
+
+  &-danger {
+    background: var(--danger);
+    color     : #fff;
+  }
+
+  &-sm {
+    font-size: 12px;
+    height   : 24px;
+    padding  : 4px 16px;
+  }
+
+  &-lg {
+    font-size: 16px;
+    height   : 42px;
+    padding  : 4px 20px;
+  }
+}

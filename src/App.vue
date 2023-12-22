@@ -1,32 +1,36 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view />
+  <div>
+    <router-view name="layout"></router-view>
+    <router-view name="lock"></router-view>
+    <router-view name="webpage"></router-view>
+    <router-view name="book"></router-view>
   </div>
 </template>
 
-<style lang="less">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+<script>
+import Layout from './layout/layout.vue';
 
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
+export default {
+  components: {
+    Layout
+  },
+  created() {
+    // console.log(
+    //   `%c       `,
+    //   `padding-bottom:50px;
+    //    font-size:62px;
+    //    background-image:url(http://192.168.0.105:3003/pcq_i.svg);
+    //    background-size:cover;
+    //    background-repeat:no-repeat
+    //    `
+    // );
   }
+};
+</script>
+
+<style lang="less" scoped>
+p {
+  color: #f00;
+  font-size: 60px;
 }
 </style>

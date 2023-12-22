@@ -1,0 +1,121 @@
+.modal {
+  position: fixed;
+  z-index : 100;
+}
+
+.modal-content {
+  position     : fixed;
+  width        : 500px;
+  background   : #fff;
+  left         : 50%;
+  top          : 50%;
+  margin-left  : -250px;
+  border-radius: 4px;
+  z-index      : 1001;
+}
+
+.modal-content-in {
+  animation          : modalCoutentIn 0.3s;
+  animation-fill-mode: forwards;
+}
+
+@modalCoutentOffsetStart: -340px;
+@modalCoutentOffsetEnd  : -310px;
+
+@keyframes modalCoutentIn {
+  0% {
+    margin-top: @modalCoutentOffsetStart;
+    opacity   : 0;
+  }
+
+  100% {
+    margin-top: @modalCoutentOffsetEnd;
+    opacity   : 1;
+  }
+}
+
+.modal-content-out {
+  animation          : modalCoutentOut 0.3s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes modalCoutentOut {
+  0% {
+    margin-top: @modalCoutentOffsetEnd;
+    opacity   : 1;
+  }
+
+  100% {
+    margin-top: @modalCoutentOffsetStart;
+    opacity   : 0;
+  }
+}
+
+.modal {
+  &-header {
+    padding      : 16px 24px;
+    border-bottom: 1px solid #ddd;
+    font-size    : 16px;
+    font-weight  : 500;
+  }
+
+  &-body {
+    padding : 24px;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+
+  &-footer {
+    text-align: right;
+    padding   : 14px 16px;
+    border-top: 1px solid #ddd;
+  }
+}
+
+.modal-close-btn {
+  position: absolute;
+  right   : 0;
+  top     : 0;
+  padding : 20px;
+  cursor  : pointer;
+}
+
+.modal-shade {
+  position  : fixed;
+  top       : 0;
+  right     : 0;
+  bottom    : 0;
+  left      : 0;
+  background: #000;
+  z-index   : 1000;
+}
+
+.modal-shade-fadeIn {
+  animation          : modalShadefadeIn 0.5s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes modalShadefadeIn {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 0.4;
+  }
+}
+
+.modal-shade-fadeOut {
+  animation          : modalShadeFadeOut 0.5s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes modalShadeFadeOut {
+  0% {
+    opacity: 0.4;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}

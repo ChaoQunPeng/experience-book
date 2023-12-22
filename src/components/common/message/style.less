@@ -1,0 +1,34 @@
+@import '../../../assets/theme/default.less';
+
+.message {
+  width     : 100%;
+  text-align: center;
+
+  &-content {
+    display      : inline-block;
+    background   : #fff;
+    padding      : 10px 16px;
+    border-radius: 4px;
+    box-shadow   : 1px 1px 20px var(--peace);
+    text-align   : left;
+    line-height  : 1.5;
+
+
+    .iconfont.info {
+      color: @info;
+    }
+
+    .iconfont.success {
+      color: @success;
+    }
+
+    .iconfont.error {
+      color: @danger;
+    }
+
+    .iconfont.warning {
+      color: @warning;
+    }
+  }
+
+}
