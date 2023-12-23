@@ -1,6 +1,8 @@
 <template>
   <div>
     <div>
+      <a-button type="primary"> Primary </a-button>
+
       <label>
         <input
           v-pcq-input
@@ -67,8 +69,15 @@ import axios from 'axios';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import LevelStar from '@components/content/level-star/level-star.vue';
 import LevelProgressBar from '@components/content/level-progress-bar/level-progress-bar.vue';
+// import { Button } from 'ant-design-vue';
 
 export default {
+  components: {
+    LevelStar,
+    LevelProgressBar,
+    // AButton: Button
+  },
+
   data() {
     return {
       msg: 'home working',
@@ -80,11 +89,6 @@ export default {
       originData: [],
       value: ''
     };
-  },
-
-  components: {
-    LevelStar,
-    LevelProgressBar
   },
 
   created() {

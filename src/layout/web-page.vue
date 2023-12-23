@@ -1,8 +1,8 @@
 <template>
   <div class="webpage">
     <div class="main-body">
-      <h1 class="title mb-4 text-center">{{title}}</h1>
-      <div class="sub-title text-center">{{createDate | dateFormat('YYYY-MM-DD HH:mm:ss')}}</div>
+      <h1 class="title mb-4 text-center">{{ title }}</h1>
+      <div class="sub-title text-center">{{ createDate | dateFormat('YYYY-MM-DD HH:mm:ss') }}</div>
       <article class="article" v-html="content"></article>
     </div>
 
@@ -28,6 +28,10 @@ export default {
   },
   methods: {
     getExpById(experienceId) {
+      this.title = `萨达`;
+      this.content = `asdsa`;
+      this.createDate = `asdasasd`;
+      return;
       this.$axios
         .get(`experience/detail/${experienceId}`)
         .then(res => {

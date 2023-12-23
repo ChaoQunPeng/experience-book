@@ -4,7 +4,7 @@ import { APP_CONFIG } from '../config/app-config';
 
 Vue.use(VueRouter);
 
-import Home from '../views/home/index.vue';
+import Home from '../views/home/home-index.vue';
 import Detail from '../views/detail/index.vue';
 import Record from '../views/record/index.vue';
 import Edit from '../views/edit/index.vue';

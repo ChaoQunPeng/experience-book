@@ -2,33 +2,29 @@
   <div class="detail">
     <!-- <router-link to="/home" replace>Go to Home</router-link> -->
     <div class="pcq-layout">
-      <div style="width:250px;margin-right:30px">
-        <div class="name text-center">{{headline}}</div>
+      <div style="width: 250px; margin-right: 30px">
+        <div class="name text-center">{{ headline }}</div>
 
         <div class="halo">
-          <p>{{computeExp}}</p>
+          <p>{{ computeExp }}</p>
           <div></div>
         </div>
 
         <button v-pcq-button btnType="primary" class="block" @click="goRecord()">Level Up!</button>
       </div>
-      <div style="background:#fff;flex:1;padding:20px;border-radius:6px;display:flex;">
+      <div style="background: #fff; flex: 1; padding: 20px; border-radius: 6px; display: flex">
         <div class="exp-container clearfix">
-          <div v-for="(item,index) in items" :key="index" class="exp-container-item">
+          <div v-for="(item, index) in items" :key="index" class="exp-container-item">
             <div class="exp-box">
-              <div class="exp">{{item.Exp}}</div>
+              <div class="exp">{{ item.Exp }}</div>
             </div>
-            <div style="flex:1;">
-              <a class="title" @click="viewExp(item)">{{item.Title}}</a>
-              <a class="content" @click="viewExp(item)">{{item.Content}}</a>
+            <div style="flex: 1">
+              <a class="title" @click="viewExp(item)">{{ item.Title }}</a>
+              <a class="content" @click="viewExp(item)">{{ item.Content }}</a>
               <div class="date">
                 <a @click="editExp(item)">编辑</a>
                 |
-                <a
-                  v-pcq-popconfirm
-                  pcqPopconfirmTitle="您确定要删除这条经验吗？"
-                  @onConfirm="confirmDel(item)"
-                >删除</a>
+                <a v-pcq-popconfirm pcqPopconfirmTitle="您确定要删除这条经验吗？" @onConfirm="confirmDel(item)">删除</a>
                 |
                 <a @click="handleModifyExpClassifyModel(item)">操作</a>
                 |
@@ -46,19 +42,15 @@
       @ok="modfiyExpClassify"
       @cancel="handleModifyExpClassifyModel"
     >
-      <div class="mb-3">经验名称：{{expItem && expItem.Title}}</div>
+      <div class="mb-3">经验名称：{{ expItem && expItem.Title }}</div>
       <select v-model="skillIdValue" class="pcq-select">
         <option value="0" disabled>选择新的所属分类</option>
-        <option
-          v-for="(skill,index) in skillList"
-          :key="index"
-          :value="skill.SkillID"
-        >{{skill.Name}}</option>
+        <option v-for="(skill, index) in skillList" :key="index" :value="skill.SkillID">{{ skill.Name }}</option>
       </select>
     </modal>
   </div>
 </template>
-	
+
 <script>
 import axios from 'axios';
 import trimHtml from 'trim-html';
@@ -96,6 +88,20 @@ export default {
     },
     initData() {
       let queryParamsId = this.$router.currentRoute.params['id'];
+
+      this.items = [
+        {
+          Exp: 1,
+          Title: 'sdfd',
+          Content: 'asdas'
+        },
+        {
+          Exp: 1,
+          Title: 'sdfd',
+          Content: 'asdas'
+        }
+      ];
+      return;
       axios.get(`experience/${queryParamsId}`).then(res => {
         this.items = res.data.data;
         this.items.forEach(e => {
@@ -184,7 +190,7 @@ export default {
     },
     escape2Html(str) {
       var arrEntities = { lt: '<', gt: '>', nbsp: ' ', amp: '&', quot: '"' };
-      return str.replace(/&(lt|gt|nbsp|amp|quot);/gi, function(all, t) {
+      return str.replace(/&(lt|gt|nbsp|amp|quot);/gi, function (all, t) {
         return arrEntities[t];
       });
     }
@@ -308,5 +314,3 @@ export default {
   }
 }
 </style>
-			
-				
