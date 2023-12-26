@@ -1,3 +1,11 @@
+<!--
+ * @Author: PengChaoQun 1152684231@qq.com
+ * @Date: 2023-11-15 21:02:37
+ * @LastEditors: PengChaoQun 1152684231@qq.com
+ * @LastEditTime: 2023-12-26 21:10:27
+ * @FilePath: /experience-book/src/App.vue
+ * @Description: 
+-->
 <template>
   <div>
     <router-view name="layout"></router-view>
@@ -29,8 +37,5 @@ export default {
 </script>
 
 <style lang="less" scoped>
-p {
-  color: #f00;
-  font-size: 60px;
-}
+@import '../src/assets/theme/index.less';
 </style>

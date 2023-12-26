@@ -16,6 +16,8 @@ import LockScreen from '../layout/lock-screen.vue';
 import Webpage from '../layout/web-page.vue';
 import Book from '../layout/book.vue';
 
+import DailyComplete from '../views/daily-complete/daily-complete-index';
+
 const routes = [
   {
     path: '',
@@ -29,6 +31,14 @@ const routes = [
         name: 'home',
         meta: {
           title: '首页'
+        }
+      },
+      {
+        path: 'daily-complete',
+        component: DailyComplete,
+        name: 'daily-complete',
+        meta: {
+          title: '每日打卡'
         }
       },
       {

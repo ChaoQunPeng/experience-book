@@ -3,31 +3,21 @@
   padding: 0;
   box-sizing: border-box;
 }
-
-// ::selection {
-//   background: var(--primary);
-//   color     : #fff;
-// }
-
 a {
   cursor: pointer;
 }
-
 a[href] {
   text-decoration: none;
   color: #1e90ff;
   transition: all 0.3s;
-
-  &:hover {
-    color: #5352ed;
-  }
 }
-
+a[href]:hover {
+  color: #5352ed;
+}
 ::-webkit-scrollbar {
   width: 3px;
   background: #fff;
 }
-
 ::-webkit-scrollbar-thumb {
   background: var(--primary);
   border-radius: 5px;

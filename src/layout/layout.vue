@@ -1,15 +1,16 @@
-
 <template>
-  <div style="height: 100%;">
+  <div style="height: 100%">
+    <!-- <header-layout></header-layout> -->
 
-    <header-layout></header-layout>
+    <!-- <left-layout></left-layout> -->
 
-    <left-layout></left-layout>
-    
-    <body-layout>
+    <!-- <body-layout>
        <content-layout></content-layout>
-    </body-layout>
-    
+    </body-layout> -->
+
+    <transition name="route" mode="out-in">
+      <router-view></router-view>
+    </transition>
   </div>
 </template>
 
@@ -41,4 +42,3 @@ body {
   background: @layout-theme;
 }
 </style>
-  
