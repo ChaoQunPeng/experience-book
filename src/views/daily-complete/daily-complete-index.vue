@@ -2,16 +2,24 @@
  * @Author: PengChaoQun 1152684231@qq.com
  * @Date: 2023-12-26 14:52:27
  * @LastEditors: PengChaoQun 1152684231@qq.com
- * @LastEditTime: 2023-12-29 15:38:16
+ * @LastEditTime: 2023-12-29 18:42:10
  * @FilePath: /experience-book/src/views/daily-complete/daily-complete-index.vue
  * @Description: 
 -->
 <template>
-  <div>
-    <a-button class="mb-30" type="primary" @click="add">新增</a-button>
+  <div class="mt-15">
+    <a-tabs v-model="activeKey" default-active-key="all" @change="tabOnChange">
+      <a-tab-pane key="all" :tab="'全部 ' + listData.length"> </a-tab-pane>
+      <a-tab-pane key="completed" :tab="'已打卡 ' + listData.filter(e => e.todayPunchStatus).length"> </a-tab-pane>
+      <a-tab-pane key="incomplete" :tab="'未打卡 ' + listData.filter(e => !e.todayPunchStatus).length"> </a-tab-pane>
+
+      <a-button slot="tabBarExtraContent" class="mb-20 mr-30" type="primary" @click="add">新增</a-button>
+    </a-tabs>
+
     <a-row :key="rowKey" :gutter="20">
-      <a-col v-for="(item, index) in listData" :key="item.id" :span="6" class="mb-30">
-        <a-card :title="item.name">
+      <a-col v-for="(item, index) in resolveListData" :key="item.id" :span="6" class="mb-30">
+        <a-card>
+          <template #title> {{ item.name }} </template>
           <template #extra>
             <a-dropdown :ref="'dropdown_' + index" :trigger="['click']" v-model="item.visible">
               <span class="cursor-pointer">
@@ -76,11 +84,21 @@ export default {
       listData: [],
       value: '',
       visible: false,
-      rowKey: 0
+      rowKey: 0,
+      activeKey: 'all'
     };
   },
 
   computed: {
+    resolveListData() {
+      if (this.activeKey == 'all') {
+        return this.listData;
+      } else if (this.activeKey == 'completed') {
+        return this.listData.filter(e => e.todayPunchStatus);
+      } else {
+        return this.listData.filter(e => !e.todayPunchStatus);
+      }
+    },
     resolveDefaultChecked() {
       return function (item) {
         let res = item.punchList.findIndex(e => e.createTime == dayjs().format('YYYY-MM-DD'));
@@ -108,6 +126,9 @@ export default {
   // mounted() {},
 
   methods: {
+    tabOnChange(key) {
+      console.log(key);
+    },
     async getList() {
       let res = await Api.dailyComplete.getList().catch(err => {
         console.error(err);
@@ -194,6 +215,7 @@ export default {
 
         this.$info({
           title: '编辑',
+          closable: true,
           content: () => <a-input vModel={this.value} placeholder="打卡事项名称" />,
           onOk: async () => {
             await this.edit(item.id, { name: this.value });
