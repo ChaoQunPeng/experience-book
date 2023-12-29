@@ -2,7 +2,7 @@
  * @Author: PengChaoQun 1152684231@qq.com
  * @Date: 2023-12-21 23:43:27
  * @LastEditors: PengChaoQun 1152684231@qq.com
- * @LastEditTime: 2023-12-26 20:08:09
+ * @LastEditTime: 2023-12-26 23:02:31
  * @FilePath: /experience-book/vue.config.js
  * @Description:
  */
@@ -24,6 +24,7 @@ module.exports = {
   // 关闭eslint
   lintOnSave: false,
   configureWebpack: {
+    devtool: 'source-map',
     resolve: {
       alias: {
         // assets: '@assets',

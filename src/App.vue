@@ -2,7 +2,7 @@
  * @Author: PengChaoQun 1152684231@qq.com
  * @Date: 2023-11-15 21:02:37
  * @LastEditors: PengChaoQun 1152684231@qq.com
- * @LastEditTime: 2023-12-26 21:10:27
+ * @LastEditTime: 2023-12-29 13:48:36
  * @FilePath: /experience-book/src/App.vue
  * @Description: 
 -->
@@ -17,6 +17,8 @@
 
 <script>
 import Layout from './layout/layout.vue';
+
+
 
 export default {
   components: {
@@ -36,6 +38,4 @@ export default {
 };
 </script>
 
-<style lang="less" scoped>
-@import '../src/assets/theme/index.less';
-</style>
+<style lang="less"></style>

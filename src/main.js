@@ -2,7 +2,7 @@
  * @Author: PengChaoQun 1152684231@qq.com
  * @Date: 2023-11-15 21:02:37
  * @LastEditors: PengChaoQun 1152684231@qq.com
- * @LastEditTime: 2023-12-26 21:09:52
+ * @LastEditTime: 2023-12-29 13:53:32
  * @FilePath: /experience-book/src/main.js
  * @Description:
  */
@@ -16,11 +16,9 @@ import { router } from './router/index';
 
 Vue.use(Antd);
 
-// import { Button, Card, Row, Col } from 'ant-design-vue';
-// Vue.use(Button);
-// Vue.use(Card);
-// Vue.use(Row);
-// Vue.use(Col);
+import moment from 'moment';
+import 'moment/locale/zh-cn';
+moment.locale('zh-cn');
 
 // component
 import './components/index';
@@ -31,7 +29,7 @@ import './utils/directives/index';
 import './utils/mixin';
 
 // style
-
+import './assets/theme/index.less';
 import './components/style';
 
 //axios
