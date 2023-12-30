@@ -2,13 +2,14 @@
  * @Author: PengChaoQun 1152684231@qq.com
  * @Date: 2023-12-21 23:43:27
  * @LastEditors: PengChaoQun 1152684231@qq.com
- * @LastEditTime: 2023-12-26 23:02:31
+ * @LastEditTime: 2023-12-29 19:52:01
  * @FilePath: /experience-book/vue.config.js
  * @Description:
  */
 const path = require('path');
 
 module.exports = {
+  publicPath: './',
   devServer: {
     proxy: {
       '/api': {

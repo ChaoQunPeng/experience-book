@@ -2,24 +2,30 @@
  * @Author: PengChaoQun 1152684231@qq.com
  * @Date: 2023-12-26 14:52:27
  * @LastEditors: PengChaoQun 1152684231@qq.com
- * @LastEditTime: 2023-12-29 18:42:10
+ * @LastEditTime: 2023-12-30 15:57:54
  * @FilePath: /experience-book/src/views/daily-complete/daily-complete-index.vue
  * @Description: 
 -->
 <template>
-  <div class="mt-15">
-    <a-tabs v-model="activeKey" default-active-key="all" @change="tabOnChange">
-      <a-tab-pane key="all" :tab="'全部 ' + listData.length"> </a-tab-pane>
+  <div class="mt-15 overflow-x-hidden">
+    <a-tabs class="mb-30 px-30" v-model="activeKey" default-active-key="all" @change="tabOnChange">
+      <a-tab-pane key="incomplete" :tab="'待打卡 ' + listData.filter(e => !e.todayPunchStatus).length"> </a-tab-pane>
       <a-tab-pane key="completed" :tab="'已打卡 ' + listData.filter(e => e.todayPunchStatus).length"> </a-tab-pane>
-      <a-tab-pane key="incomplete" :tab="'未打卡 ' + listData.filter(e => !e.todayPunchStatus).length"> </a-tab-pane>
+      <!-- <a-tab-pane key="all" :tab="'全部 ' + listData.length"> </a-tab-pane> -->
 
-      <a-button slot="tabBarExtraContent" class="mb-20 mr-30" type="primary" @click="add">新增</a-button>
+      <a-button slot="tabBarExtraContent" type="primary" @click="add">新增</a-button>
     </a-tabs>
 
-    <a-row :key="rowKey" :gutter="20">
+    <a-row class="px-30" :key="rowKey" :gutter="30">
       <a-col v-for="(item, index) in resolveListData" :key="item.id" :span="6" class="mb-30">
         <a-card>
-          <template #title> {{ item.name }} </template>
+          <template #title>
+            <span class="text-size-18 text-black select-none">{{ item.name }}</span>
+            <span class="text-size-14 text-black-85 font-normal ml-8 select-none">
+              打卡:<span class="font-normal">{{ item.punchList.length }}</span
+              >次
+            </span>
+          </template>
           <template #extra>
             <a-dropdown :ref="'dropdown_' + index" :trigger="['click']" v-model="item.visible">
               <span class="cursor-pointer">
@@ -43,23 +49,37 @@
             </a-dropdown>
           </template>
 
-          <div class="flex px-12 py-10">
-            <div class="flex-1 font-bold">打卡次数：{{ item.punchList.length }}次</div>
-            <div>创建时间：{{ item.createTime | dateFormat('YYYY-MM-DD') }}</div>
+          <div class="absolute left-12 top-16 text-black-65 select-none">
+            开始于：{{ item.createTime | dateFormat('YYYY-MM-DD') }}
           </div>
 
           <div>
             <a-calendar :ref="'calendar_' + item.id" :key="item.id" class="a-calendar" :fullscreen="false">
-              <template slot="dateCellRender" slot-scope="value">
-                <!-- {{ parseDate(value) }} -->
-                <span v-if="resolveShowPunch(value, item)" :key="'dateCellRender' + item.id">
-                  <a-icon class="text-blue" :style="{ fontWeight: 'bold' }" type="check" />
+              <!-- <template #headerRender="{ value, type, onChange, onTypeChange }">
+                <div class="header">
+                  1
+                </div>
+              </template> -->
+
+              <div
+                class="flex flex-col items-center justify-center select-none cursor-pointer"
+                slot="dateFullCellRender"
+                slot-scope="value"
+              >
+                <span class="flex items-center justify-center day-value" :class="resolveShowPunch(value, item)">
+                  {{ parseDate(value) }}
                 </span>
-              </template>
+
+                <!-- <span>缺卡</span> -->
+              </div>
             </a-calendar>
           </div>
 
-          <a-checkbox :default-checked="resolveDefaultChecked(item)" @change="statusOnChange($event, item)">
+          <a-checkbox
+            class="text-center"
+            :default-checked="resolveDefaultChecked(item)"
+            @change="statusOnChange($event, item)"
+          >
             完成打卡
           </a-checkbox>
         </a-card>
@@ -85,7 +105,7 @@ export default {
       value: '',
       visible: false,
       rowKey: 0,
-      activeKey: 'all'
+      activeKey: 'incomplete'
     };
   },
 
@@ -107,14 +127,18 @@ export default {
     },
     parseDate() {
       return function (value) {
-        return dayjs(value).format('DD');
+        return dayjs(value).format('D');
       };
     },
     resolveShowPunch() {
       return function (value, item) {
         const currentCellDate = dayjs(value).format('YYYY-MM-DD');
 
-        return item.punchList.findIndex(e => dayjs(e.createTime).format('YYYY-MM-DD') == currentCellDate) > -1;
+        let index = item.punchList.findIndex(e => dayjs(e.createTime).format('YYYY-MM-DD') == currentCellDate);
+
+        if (index > -1) {
+          return 'punched';
+        }
       };
     }
   },
@@ -147,6 +171,7 @@ export default {
     async add() {
       this.$info({
         title: '新增',
+        closable: true,
         content: () => <a-input vModel={this.value} placeholder="打卡事项名称" />,
         onOk: async () => {
           await Api.dailyComplete
@@ -242,6 +267,28 @@ export default {
 </style>
 
 <style lang="less" scoped>
+/deep/ .ant-tabs {
+  .ant-tabs-bar {
+    margin-bottom: 0;
+  }
+  .ant-tabs-nav .ant-tabs-tab {
+    padding: 12px 0;
+  }
+}
+
+/deep/ .ant-card {
+  border-radius: 12px;
+
+  .ant-card-head {
+    padding: 0 15px;
+  }
+
+  .ant-card-body {
+    position: relative;
+    padding: 0;
+  }
+}
+
 /deep/ .ant-checkbox-wrapper {
   width: 100%;
   padding: 20px;
@@ -252,17 +299,77 @@ export default {
   }
 }
 
-/deep/ .ant-card-body {
-  padding: 0;
-}
-
 /deep/ .ant-radio-group-small {
   display: none;
 }
 
 /deep/ .a-calendar {
   .ant-fullcalendar-header {
-    padding: 0 12px 12px 12px;
+    position: relative;
+    padding: 15px 12px;
+  }
+
+  .ant-fullcalendar-value {
+    color: rgba(36, 48, 66, 0.4);
+    background: rgba(243, 247, 251, 0.7);
+    border-radius: 50%;
+    font-weight: 300;
+  }
+
+  .ant-fullcalendar-selected-day .ant-fullcalendar-value {
+    color: #fff;
+    background: #1890ff;
+  }
+
+  .ant-fullcalendar-calendar-body {
+    padding: 8px 5px;
+  }
+
+  .ant-fullcalendar table {
+    height: auto;
+  }
+
+  .ant-fullcalendar td {
+    // vertical-align: top;
+    height: 30px;
+  }
+
+  .ant-fullcalendar-column-header-inner {
+    user-select: none;
+  }
+
+  .ant-fullcalendar-last-month-cell,
+  .ant-fullcalendar-next-month-btn-day {
+    color: rgba(0, 0, 0, 0.25);
+
+    .day-value {
+      background: #fff !important;
+    }
+  }
+
+  .ant-fullcalendar-cell {
+    .day-value {
+      background: rgba(243, 247, 251, 0.7);
+      color: rgba(36, 48, 66, 0.4);
+    }
+  }
+
+  .day-value {
+    width: 25px;
+    height: 25px;
+    border-radius: 10px;
+
+    &.punched {
+      background-color: #1890ff;
+      color: #fff !important;
+    }
+  }
+
+  .ant-fullcalendar-today {
+    .day-value {
+      border: 1px solid #1890ff;
+      color: #1890ff;
+    }
   }
 }
 </style>

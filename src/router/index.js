@@ -26,12 +26,8 @@ const routes = [
     },
     children: [
       {
-        path: 'home',
-        component: Home,
-        name: 'home',
-        meta: {
-          title: '首页'
-        }
+        path: '',
+        redirect: '/daily-complete'
       },
       {
         path: 'daily-complete',
@@ -80,8 +76,7 @@ const routes = [
         meta: {
           title: '回收站'
         }
-      },
-      { path: '', component: Home, redirect: '/home' }
+      }
     ]
   },
   {
